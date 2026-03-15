@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Directory — TASR/UIPL</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg:#f0f4ff; --white:#fff; --blue:#1a56db; --blue-dark:#1240a8;
+    --blue-hover:#1648c0; --blue-light:#eef2ff; --blue-mid:#c7d4f8;
+    --border:#dde4f5; --text:#1a2340; --text2:#455075; --text3:#8896b3;
+    --green:#0e7a56; --green-bg:#eafaf4; --green-border:#b0e5d3;
+    --amber:#7a5200; --amber-bg:#fff8e6; --amber-border:#f0d58a;
+    --note-bg:#fffbea; --note-border:#f6d860; --note-text:#6b5200;
+    --red:#b91c1c; --red-bg:#fff1f1; --red-border:#fac5c5;
+    --clink-bg:#e8f4ff; --clink-border:#93c5fd; --clink-text:#1e40af;
+    --cid-bg:#fdf4ff;   --cid-border:#d8b4fe;   --cid-text:#6b21a8;
+    --cpass-bg:#fff7ed; --cpass-border:#fdba74;  --cpass-text:#9a3412;
+    --cother-bg:#f1f5f9;--cother-border:#cbd5e1; --cother-text:#475569;
+    --font:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace; --r:7px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;display:flex;flex-direction:column;font-size:14px;}
+
+  /* HEADER */
+  header{background:var(--blue);padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(26,86,219,.25);}
+  .logo{display:flex;align-items:center;gap:11px;}
+  .logo-icon{width:33px;height:33px;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);border-radius:7px;display:flex;align-items:center;justify-content:center;}
+  .logo-icon svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .logo-title{font-size:15px;font-weight:700;color:#fff;}
+  .logo-sub{font-size:10px;color:rgba(255,255,255,.6);font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-top:1px;}
+  .hdr-right{display:flex;align-items:center;gap:10px;}
+  .count-pill{background:rgba(255,255,255,.18);color:#fff;font-family:var(--mono);font-size:11.5px;padding:3px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.22);}
+  .count-pill b{font-weight:700;}
+  /* sync status */
+  .sync-pill{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.75);padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);}
+  .sync-dot{width:7px;height:7px;border-radius:50%;background:#6ee7b7;flex-shrink:0;}
+  .sync-dot.syncing{background:#fbbf24;animation:pulse 1s infinite;}
+  .sync-dot.error{background:#f87171;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+  /* CONFIG BANNER */
+  .config-banner{background:#fff3cd;border-bottom:1px solid #ffc107;padding:12px 28px;display:flex;align-items:center;gap:12px;font-size:13px;color:#664d03;}
+  .config-banner svg{width:16px;height:16px;flex-shrink:0;stroke:#856404;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .config-banner b{font-weight:700;}
+  .btn-config{margin-left:auto;background:#ffc107;border:none;font-family:var(--font);font-size:12px;font-weight:700;padding:5px 14px;border-radius:5px;cursor:pointer;color:#000;transition:background .15s;}
+  .btn-config:hover{background:#e0a800;}
+
+  /* TOOLBAR */
+  .toolbar{padding:11px 28px;display:flex;align-items:center;gap:10px;background:var(--white);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(26,86,219,.06);}
+  .search-box{flex:1;max-width:300px;position:relative;}
+  .search-box svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--text3);fill:none;stroke-width:2;stroke-linecap:round;}
+  .search-box input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13px;padding:7px 10px 7px 28px;border-radius:var(--r);outline:none;transition:border-color .18s;}
+  .search-box input:focus{border-color:var(--blue);background:var(--white);box-shadow:0 0 0 3px rgba(26,86,219,.09);}
+  .search-box input::placeholder{color:var(--text3);}
+  .toolbar-right{display:flex;align-items:center;gap:8px;margin-left:auto;}
+  .btn-refresh{background:var(--white);border:1px solid var(--border);color:var(--text2);font-family:var(--font);font-size:12px;font-weight:500;padding:6px 12px;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .15s;}
+  .btn-refresh:hover{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-light);}
+  .btn-refresh svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .btn-add{background:var(--blue);color:#fff;border:none;font-family:var(--font);font-size:13px;font-weight:600;padding:7px 16px;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 2px 6px rgba(26,86,219,.22);transition:background .15s,transform .1s;}
+  .btn-add:hover{background:var(--blue-hover);}
+  .btn-add:active{transform:scale(.97);}
+  .btn-add svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;}
+
+  /* TABLE */
+  .table-wrap{flex:1;overflow-x:auto;padding:18px 28px 50px;}
+  table{width:100%;border-collapse:collapse;min-width:1320px;background:var(--white);border-radius:10px;overflow:hidden;box-shadow:0 1px 8px rgba(26,86,219,.09);border:1px solid var(--border);}
+  thead th{font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);padding:11px 12px;text-align:left;background:var(--blue-light);border-bottom:2px solid var(--blue-mid);white-space:nowrap;}
+  tbody tr.proj-row{border-bottom:none;transition:background .1s;}
+  tbody tr.proj-row:hover{background:#f5f8ff;}
+  tbody tr.note-row{border-bottom:2px solid var(--border);}
+  tbody tr.note-row td{padding:0 12px 10px 12px;}
+  td{padding:12px 12px;vertical-align:top;color:var(--text);line-height:1.5;}
+  .col-num{width:36px;text-align:center;}
+  .col-link{width:170px;}
+  .col-desc{min-width:135px;}
+  .col-in{width:210px;}
+  .col-out{width:210px;}
+  .col-cred{width:230px;}
+  .col-act{width:96px;}
+  .row-num{font-family:var(--mono);font-size:11px;color:var(--text3);}
+  .proj-name{font-size:13.5px;font-weight:700;color:var(--blue-dark);margin-bottom:2px;}
+  .proj-url{color:var(--text3);font-family:var(--mono);font-size:10px;display:block;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:155px;}
+  .btn-open{display:inline-flex;align-items:center;gap:5px;background:var(--blue);color:#fff;text-decoration:none;font-family:var(--font);font-size:11px;font-weight:600;padding:4px 10px;border-radius:5px;border:none;cursor:pointer;white-space:nowrap;transition:background .15s;}
+  .btn-open:hover{background:var(--blue-hover);}
+  .btn-open svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+  .desc-cell{font-size:12.5px;color:var(--text2);line-height:1.6;}
+
+  /* FILE BOXES */
+  .boxes-wrap{display:flex;flex-direction:column;gap:4px;}
+  .file-row{display:flex;align-items:center;gap:3px;}
+  .box-num{width:20px;min-width:20px;height:28px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:700;border-radius:4px;flex-shrink:0;user-select:none;}
+  .in-num{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
+  .out-num{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border);}
+  .box-input{flex:1;border:1px solid var(--border);border-radius:4px;padding:4px 7px;font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--text);outline:none;height:28px;transition:border-color .15s,background .15s;}
+  .box-input.in-input{background:#f4fdf8;border-color:var(--green-border);}
+  .box-input.out-input{background:#fffdf0;border-color:var(--amber-border);}
+  .box-input.in-input:focus{background:var(--white);border-color:var(--green);box-shadow:0 0 0 2px rgba(14,122,86,.1);}
+  .box-input.out-input:focus{background:var(--white);border-color:#b07a00;box-shadow:0 0 0 2px rgba(122,82,0,.1);}
+  .box-input::placeholder{color:#bbc8d8;font-style:italic;font-size:10.5px;}
+  .btn-box-del{width:22px;min-width:22px;height:22px;border:1px solid var(--red-border);background:var(--red-bg);color:var(--red);border-radius:4px;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .12s;flex-shrink:0;}
+  .btn-box-del:hover{background:var(--red);color:#fff;}
+  .boxes-footer{display:flex;align-items:center;gap:5px;margin-top:2px;}
+  .btn-box-add{display:flex;align-items:center;gap:4px;background:transparent;border:1px dashed;font-family:var(--font);font-size:11px;font-weight:500;padding:3px 9px;border-radius:4px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .btn-box-add.in-add{border-color:var(--green-border);color:var(--green);}
+  .btn-box-add.out-add{border-color:var(--amber-border);color:var(--amber);}
+  .btn-box-add.in-add:hover{background:var(--green-bg);}
+  .btn-box-add.out-add:hover{background:var(--amber-bg);}
+  .btn-boxes-save{display:none;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);font-family:var(--font);font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:background .15s;}
+  .btn-boxes-save:hover{background:var(--blue-mid);}
+  .btn-boxes-save.show{display:inline-block;}
+
+  /* CREDENTIALS */
+  .cred-wrap{display:flex;flex-direction:column;gap:5px;}
+  .cred-entry{border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+  .cred-header{display:flex;align-items:center;justify-content:space-between;padding:3px 6px 3px 5px;}
+  .cred-type-badge{font-family:var(--mono);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:3px;}
+  .badge-link{background:var(--clink-bg);color:var(--clink-text);border:1px solid var(--clink-border);}
+  .badge-id{background:var(--cid-bg);color:var(--cid-text);border:1px solid var(--cid-border);}
+  .badge-pass{background:var(--cpass-bg);color:var(--cpass-text);border:1px solid var(--cpass-border);}
+  .badge-other{background:var(--cother-bg);color:var(--cother-text);border:1px solid var(--cother-border);}
+  .cred-entry.type-link .cred-header{background:var(--clink-bg);}
+  .cred-entry.type-id .cred-header{background:var(--cid-bg);}
+  .cred-entry.type-pass .cred-header{background:var(--cpass-bg);}
+  .cred-entry.type-other .cred-header{background:var(--cother-bg);}
+  .cred-input-row{display:flex;align-items:center;background:var(--white);}
+  .cred-input{flex:1;border:none;outline:none;padding:5px 8px;font-family:var(--mono);font-size:11.5px;color:var(--text);background:transparent;min-width:0;}
+  .cred-input::placeholder{color:var(--text3);font-style:italic;font-size:10.5px;}
+  .cred-icon-btn{width:28px;height:28px;flex-shrink:0;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text3);transition:color .15s,background .15s;border-left:1px solid var(--border);}
+  .cred-icon-btn:hover{background:var(--blue-light);color:var(--blue);}
+  .cred-icon-btn svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+  .btn-cred-del-entry:hover{background:var(--red-bg);color:var(--red);}
+  .copy-ok{color:var(--green)!important;}
+  .cred-footer{margin-top:2px;}
+  .cred-add-row{display:flex;gap:4px;flex-wrap:wrap;}
+  .btn-cred-add{display:inline-flex;align-items:center;gap:3px;background:transparent;border:1px dashed var(--border);color:var(--text3);font-family:var(--font);font-size:10.5px;font-weight:500;padding:3px 8px;border-radius:4px;cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .btn-cred-add:hover{border-color:var(--blue-mid);color:var(--blue);background:var(--blue-light);}
+  .btn-cred-save-all{display:none;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);font-family:var(--font);font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;width:100%;margin-top:4px;transition:background .15s;}
+  .btn-cred-save-all:hover{background:var(--blue-mid);}
+  .btn-cred-save-all.show{display:block;}
+
+  /* NOTES */
+  .note-inner{display:flex;align-items:flex-start;gap:8px;background:var(--note-bg);border:1px solid var(--note-border);border-radius:6px;padding:7px 10px;}
+  .note-icon{font-size:13px;margin-top:2px;flex-shrink:0;}
+  .note-wrap-inner{flex:1;display:flex;flex-direction:column;gap:3px;}
+  .note-area{width:100%;border:none;outline:none;resize:none;min-height:32px;background:transparent;font-family:var(--font);font-size:12.5px;color:var(--note-text);line-height:1.6;}
+  .note-area::placeholder{color:#c9a83a;font-style:italic;}
+  .save-inline{display:none;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);font-family:var(--font);font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;width:100%;transition:background .15s;margin-top:2px;}
+  .save-inline:hover{background:var(--blue-mid);}
+  .save-inline.show{display:block;}
+
+  /* ACTION */
+  .act-wrap{display:flex;flex-direction:column;gap:5px;}
+  .btn-edit,.btn-del{background:var(--white);border-radius:5px;cursor:pointer;font-family:var(--font);font-size:11.5px;font-weight:600;padding:5px 10px;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .15s;white-space:nowrap;}
+  .btn-edit{color:var(--blue);border:1.5px solid var(--blue-mid);}
+  .btn-edit:hover{background:var(--blue-light);border-color:var(--blue);}
+  .btn-del{color:var(--red);border:1.5px solid var(--red-border);}
+  .btn-del:hover{background:var(--red-bg);border-color:var(--red);}
+  .btn-edit svg,.btn-del svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* EMPTY */
+  .empty-state{text-align:center;padding:80px 20px;background:var(--white);}
+  .empty-state svg{width:46px;height:46px;stroke:var(--text3);fill:none;margin-bottom:14px;stroke-width:1.5;}
+  .empty-state h3{font-size:16px;font-weight:600;color:var(--text2);margin-bottom:8px;}
+  .empty-state p{color:var(--text3);font-size:13.5px;margin-bottom:20px;}
+  .btn-add-empty{background:var(--blue);color:#fff;border:none;font-family:var(--font);font-size:13px;font-weight:600;padding:9px 22px;border-radius:var(--r);cursor:pointer;box-shadow:0 2px 8px rgba(26,86,219,.22);transition:background .15s;}
+  .btn-add-empty:hover{background:var(--blue-hover);}
+
+  /* LOADING OVERLAY */
+  .loading-bar{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,#4ade80,#3b82f6);z-index:999;transition:width .3s ease,opacity .3s;}
+  .loading-bar.active{width:80%;opacity:1;}
+  .loading-bar.done{width:100%;opacity:0;}
+
+  /* MODAL */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(10,20,60,.32);z-index:300;align-items:center;justify-content:center;}
+  .overlay.open{display:flex;}
+  .panel{background:var(--white);border:1px solid var(--border);border-radius:12px;width:90%;max-width:500px;max-height:90vh;overflow-y:auto;padding:26px 28px;box-shadow:0 8px 32px rgba(26,86,219,.14);animation:pop .18s ease;}
+  @keyframes pop{from{opacity:0;transform:scale(.97) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+  .panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+  .panel-title{font-size:16px;font-weight:700;color:var(--text);}
+  .panel-title span{color:var(--blue);}
+  .btn-x{background:transparent;border:1px solid var(--border);color:var(--text3);width:28px;height:28px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  .btn-x:hover{border-color:var(--red-border);color:var(--red);background:var(--red-bg);}
+  .btn-x svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+  .fgrp{margin-bottom:15px;}
+  .fgrp label{display:block;font-family:var(--mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:6px;}
+  .fgrp input,.fgrp textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--font);font-size:13.5px;padding:8px 11px;border-radius:var(--r);outline:none;resize:vertical;transition:border-color .18s,box-shadow .18s;}
+  .fgrp input:focus,.fgrp textarea:focus{border-color:var(--blue);background:var(--white);box-shadow:0 0 0 3px rgba(26,86,219,.09);}
+  .fgrp input::placeholder,.fgrp textarea::placeholder{color:var(--text3);font-size:12.5px;}
+  .fgrp .hint{font-size:10.5px;color:var(--text3);margin-top:4px;font-family:var(--mono);}
+  .panel-foot{display:flex;justify-content:flex-end;gap:9px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border);}
+  .btn-cancel{background:var(--white);border:1px solid var(--border);color:var(--text2);font-family:var(--font);font-size:13px;padding:7px 18px;border-radius:var(--r);cursor:pointer;}
+  .btn-cancel:hover{border-color:var(--blue-mid);}
+  .btn-save{background:var(--blue);color:#fff;border:none;font-family:var(--font);font-size:13px;font-weight:600;padding:7px 22px;border-radius:var(--r);cursor:pointer;box-shadow:0 2px 6px rgba(26,86,219,.22);transition:background .15s;}
+  .btn-save:hover{background:var(--blue-hover);}
+  .confirm-box{background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--r);padding:18px;}
+  .confirm-box p{font-size:13.5px;color:var(--text);line-height:1.6;margin-bottom:16px;}
+  .confirm-box em{color:var(--red);font-style:normal;font-weight:600;}
+  .del-btns{display:flex;gap:8px;}
+  .btn-del-yes{background:var(--red);color:#fff;border:none;font-family:var(--font);font-size:13px;font-weight:600;padding:7px 18px;border-radius:var(--r);cursor:pointer;}
+
+  /* CONFIG MODAL extra */
+  #config-form .fgrp input{font-family:var(--mono);font-size:12px;}
+
+  ::-webkit-scrollbar{width:5px;height:5px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:10px;}
+</style>
+</head>
+<body>
+
+<!-- loading bar -->
+<div class="loading-bar" id="loading-bar"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    </div>
+    <div>
+      <div class="logo-title">Project Directory</div>
+      <div class="logo-sub">TASR / UIPL · Fleet &amp; Fuel Tools</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="sync-pill"><div class="sync-dot" id="sync-dot"></div><span id="sync-label">Synced</span></div>
+    <div class="count-pill"><b id="total-count">0</b> projects</div>
+  </div>
+</header>
+
+<!-- CONFIG BANNER (shown until API URL is set) -->
+<div class="config-banner" id="config-banner">
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span><b>One-time setup needed:</b> Paste your Google Apps Script Web App URL to enable sync across all devices.</span>
+  <button class="btn-config" onclick="openConfig()">⚙️ Set API URL</button>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <div class="search-box">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="search-input" placeholder="Search projects…">
+  </div>
+  <div class="toolbar-right">
+    <button class="btn-refresh" onclick="loadFromSheet()" title="Refresh from Google Sheets">
+      <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+      Refresh
+    </button>
+    <button class="btn-add" onclick="openAdd()">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Project
+    </button>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="col-num">#</th>
+        <th class="col-link">Project / Link</th>
+        <th class="col-desc">Description</th>
+        <th class="col-in">📥 Input Files</th>
+        <th class="col-out">📤 Output Files</th>
+        <th class="col-cred">🔐 Source / Credentials</th>
+        <th class="col-act">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="proj-body"></tbody>
+  </table>
+  <div class="empty-state" id="empty-state">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+    <h3>No projects yet</h3>
+    <p>Add your first project to get started.</p>
+    <button class="btn-add-empty" onclick="openAdd()">+ Add Project</button>
+  </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="overlay" id="overlay" onclick="overlayClick(event)">
+  <div class="panel">
+    <div class="panel-hdr">
+      <div class="panel-title" id="panel-title">Add <span>Project</span></div>
+      <button class="btn-x" onclick="closePanel()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="form-area">
+      <div class="fgrp">
+        <label>Project Name *</label>
+        <input type="text" id="f-name" placeholder="e.g. FleetPulse LiveDashboard">
+      </div>
+      <div class="fgrp">
+        <label>Project URL / Link</label>
+        <input type="url" id="f-url" placeholder="https://your-project.netlify.app">
+        <div class="hint">Full URL — used by the Open Project button.</div>
+      </div>
+      <div class="fgrp">
+        <label>Description</label>
+        <textarea id="f-desc" rows="3" placeholder="What does this tool do?"></textarea>
+      </div>
+    </div>
+    <div id="confirm-area" style="display:none;">
+      <div class="confirm-box">
+        <p>Permanently delete <em id="del-name"></em>? This cannot be undone.</p>
+        <div class="del-btns">
+          <button class="btn-del-yes" onclick="confirmDelete()">Yes, Delete</button>
+          <button class="btn-cancel" onclick="closePanel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-foot" id="form-foot">
+      <button class="btn-cancel" onclick="closePanel()">Cancel</button>
+      <button class="btn-save" onclick="saveProject()">Save Project</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIG MODAL -->
+<div class="overlay" id="config-overlay" onclick="configOverlayClick(event)">
+  <div class="panel" id="config-form">
+    <div class="panel-hdr">
+      <div class="panel-title">⚙️ <span>Setup API URL</span></div>
+      <button class="btn-x" onclick="closeConfig()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="fgrp">
+      <label>Google Apps Script Web App URL</label>
+      <input type="url" id="api-url-input" placeholder="https://script.google.com/macros/s/YOUR_ID/exec">
+      <div class="hint">Paste the URL you copied after deploying your Apps Script as a Web App.</div>
+    </div>
+    <div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:6px;padding:12px;font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:4px;">
+      <b style="color:var(--blue);">Quick Setup Steps:</b><br>
+      1. Open <a href="https://sheets.google.com" target="_blank" style="color:var(--blue);">Google Sheets</a> → create a new sheet<br>
+      2. Click <b>Extensions → Apps Script</b><br>
+      3. Delete existing code, paste contents of <b>Code.gs</b><br>
+      4. Click <b>Deploy → New Deployment</b><br>
+      5. Type: <b>Web App</b> · Execute as: <b>Me</b> · Access: <b>Anyone</b><br>
+      6. Click <b>Deploy</b> → copy the Web App URL → paste above
+    </div>
+    <div class="panel-foot">
+      <button class="btn-cancel" onclick="closeConfig()">Cancel</button>
+      <button class="btn-save" onclick="saveConfig()">Save &amp; Connect</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════════ */
+let API_URL = localStorage.getItem('tasr_api_url') || '';
+let projects = [];
+let editId = null, delId = null;
+let saveTimer = null;
+
+function openConfig(){ document.getElementById('config-overlay').classList.add('open'); document.getElementById('api-url-input').value = API_URL; }
+function closeConfig(){ document.getElementById('config-overlay').classList.remove('open'); }
+function configOverlayClick(e){ if(e.target===document.getElementById('config-overlay')) closeConfig(); }
+function saveConfig(){
+  const v = document.getElementById('api-url-input').value.trim();
+  if(!v){ alert('Please paste the Web App URL.'); return; }
+  API_URL = v;
+  localStorage.setItem('tasr_api_url', API_URL);
+  document.getElementById('config-banner').style.display = 'none';
+  closeConfig();
+  loadFromSheet();
+}
+
+function checkBanner(){
+  document.getElementById('config-banner').style.display = API_URL ? 'none' : 'flex';
+}
+
+/* ═══════════════════════════════════════════
+   SYNC INDICATOR
+═══════════════════════════════════════════ */
+function setSyncState(state, msg){
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-label');
+  dot.className = 'sync-dot' + (state==='syncing'?' syncing': state==='error'?' error':'');
+  lbl.textContent = msg;
+}
+
+/* ═══════════════════════════════════════════
+   LOADING BAR
+═══════════════════════════════════════════ */
+function barStart(){ const b=document.getElementById('loading-bar'); b.className='loading-bar active'; }
+function barDone(){  const b=document.getElementById('loading-bar'); b.className='loading-bar done'; setTimeout(()=>b.className='loading-bar',400); }
+
+/* ═══════════════════════════════════════════
+   GOOGLE SHEETS API
+═══════════════════════════════════════════ */
+
+/* ── Always save to localStorage FIRST (instant, never fails) ── */
+function saveLocal(){
+  localStorage.setItem('tasr_projects', JSON.stringify(projects));
+  localStorage.setItem('tasr_ts', Date.now().toString());
+}
+
+/* ── Load from Sheets — only replaces local if sheet has MORE/NEWER data ── */
+async function loadFromSheet(){
+  if(!API_URL){ setSyncState('error','No API URL'); return; }
+  barStart(); setSyncState('syncing','Loading…');
+  try {
+    const res  = await fetch(API_URL + '?t=' + Date.now()); /* cache-bust */
+    const json = await res.json();
+    if(json.status==='ok'){
+      const sheetData = json.data || [];
+      /* Only use sheet data if it actually has projects,
+         OR if local is empty. Never overwrite local data with empty sheet. */
+      if(sheetData.length > 0){
+        projects = sheetData;
+        projects.forEach(fixProject);
+        saveLocal(); /* update local with fresh sheet data */
+        render(document.getElementById('search-input').value);
+        setSyncState('ok','Synced ✓');
+      } else if(projects.length === 0){
+        /* Both are empty — that's fine */
+        setSyncState('ok','Ready');
+      } else {
+        /* Sheet is empty but local has data — sheet probably wasn't saved yet */
+        /* Push local data UP to sheet to fix this */
+        setSyncState('syncing','Uploading local data…');
+        await pushToSheet();
+      }
+    } else {
+      throw new Error(json.message);
+    }
+  } catch(e){
+    setSyncState('error','Sheets unavailable — using local data');
+    console.error(e);
+  }
+  barDone();
+}
+
+/* ── Push local data to Sheets ──
+   Uses form-urlencoded (not JSON) to avoid CORS preflight block ── */
+async function pushToSheet(){
+  if(!API_URL) return;
+  setSyncState('syncing','Saving…');
+  try {
+    /* URLSearchParams = simple content-type = no CORS preflight = works from Netlify */
+    const res = await fetch(API_URL, {
+      method:'POST',
+      body: new URLSearchParams({ data: JSON.stringify(projects) })
+    });
+    const json = await res.json();
+    if(json.status==='ok'){ setSyncState('ok','Saved ✓'); }
+    else { throw new Error(json.message); }
+  } catch(e){
+    setSyncState('error','Sync failed — data safe locally');
+    console.error(e);
+  }
+}
+
+/* ── Schedule a save: localStorage immediately + Sheets after debounce ── */
+function scheduleSave(){
+  saveLocal(); /* instant — localStorage never fails */
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(pushToSheet, 1500); /* Sheets save after 1.5s debounce */
+}
+
+/* ═══════════════════════════════════════════
+   DATA HELPERS
+═══════════════════════════════════════════ */
+function fixProject(p){
+  if(!Array.isArray(p.inputFiles))  p.inputFiles  = [''];
+  if(!Array.isArray(p.outputFiles)) p.outputFiles = [''];
+  if(!Array.isArray(p.credentials)) p.credentials = [];
+  if(!p.notes) p.notes='';
+}
+function nextId(){ return projects.length ? Math.max(...projects.map(p=>p.id))+1 : 1; }
+function esc(s)  { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function short(u){ try{ const x=new URL(u); return x.hostname+(x.pathname!=='/'?x.pathname:''); }catch(e){ return u; } }
+
+/* ═══════════════════════════════════════════
+   FILE BOXES
+═══════════════════════════════════════════ */
+function markDirtyWrap(wrap){ const b=wrap.querySelector('.btn-boxes-save'); if(b)b.classList.add('show'); }
+
+function saveBoxes(btn){
+  const wrap=btn.closest('.boxes-wrap');
+  const pid=parseInt(wrap.dataset.pid), type=wrap.dataset.type;
+  const vals=Array.from(wrap.querySelectorAll('.box-input')).map(e=>e.value);
+  const p=projects.find(x=>x.id===pid); if(!p)return;
+  p[type]=vals; scheduleSave();
+  btn.classList.remove('show');
+  const o=btn.textContent; btn.textContent='✓ Saved!';
+  setTimeout(()=>btn.textContent=o,1500);
+}
+
+function addBox(pid,type){
+  const wrap=document.querySelector(`.boxes-wrap[data-pid="${pid}"][data-type="${type}"]`); if(!wrap)return;
+  const list=wrap.querySelector('.file-list'), idx=list.children.length, isIn=type==='inputFiles';
+  list.appendChild(makeBoxRow(pid,type,idx,'',isIn));
+  list.lastChild.querySelector('.box-input').focus();
+  const p=projects.find(x=>x.id===pid); if(!p)return;
+  p[type].push(''); scheduleSave(); renumber(list,isIn);
+}
+
+function deleteBox(btn){
+  const row=btn.closest('.file-row'), wrap=btn.closest('.boxes-wrap');
+  const pid=parseInt(wrap.dataset.pid), type=wrap.dataset.type;
+  const list=wrap.querySelector('.file-list');
+  if(list.children.length<=1){alert('At least one box must remain.');return;}
+  const inputs=Array.from(list.querySelectorAll('.box-input'));
+  const idx=inputs.indexOf(row.querySelector('.box-input'));
+  const p=projects.find(x=>x.id===pid); if(!p)return;
+  p[type].splice(idx,1); scheduleSave(); row.remove(); renumber(list,type==='inputFiles');
+}
+
+function renumber(list,isIn){
+  Array.from(list.children).forEach((r,i)=>{ const b=r.querySelector('.box-num'); if(b)b.textContent=i+1; });
+}
+
+function makeBoxRow(pid,type,idx,val,isIn){
+  const row=document.createElement('div'); row.className='file-row';
+  const badge=document.createElement('span');
+  badge.className='box-num '+(isIn?'in-num':'out-num'); badge.textContent=idx+1;
+  const inp=document.createElement('input');
+  inp.type='text'; inp.className='box-input '+(isIn?'in-input':'out-input');
+  inp.value=val; inp.placeholder=isIn?'Input file name…':'Output file name…';
+  inp.oninput=function(){ markDirtyWrap(this.closest('.boxes-wrap')); };
+  const del=document.createElement('button');
+  del.className='btn-box-del'; del.title='Delete'; del.innerHTML='×';
+  del.onclick=function(){deleteBox(this);};
+  row.appendChild(badge); row.appendChild(inp); row.appendChild(del);
+  return row;
+}
+
+function buildBoxesDOM(pid,type,vals,isIn){
+  const wrap=document.createElement('div');
+  wrap.className='boxes-wrap'; wrap.dataset.pid=pid; wrap.dataset.type=type;
+  const list=document.createElement('div');
+  list.className='file-list'; list.style.cssText='display:flex;flex-direction:column;gap:4px;';
+  vals.forEach((v,i)=>list.appendChild(makeBoxRow(pid,type,i,v,isIn)));
+  wrap.appendChild(list);
+  const footer=document.createElement('div'); footer.className='boxes-footer';
+  const addBtn=document.createElement('button');
+  addBtn.className='btn-box-add '+(isIn?'in-add':'out-add');
+  addBtn.innerHTML='<span>+</span> Add Box';
+  addBtn.onclick=function(){addBox(pid,type);};
+  const saveBtn=document.createElement('button');
+  saveBtn.className='btn-boxes-save'; saveBtn.textContent='💾 Save All';
+  saveBtn.onclick=function(){saveBoxes(this);};
+  footer.appendChild(addBtn); footer.appendChild(saveBtn);
+  wrap.appendChild(footer); return wrap;
+}
+
+/* ═══════════════════════════════════════════
+   CREDENTIALS
+═══════════════════════════════════════════ */
+const CTYPES={
+  link: {label:'Web Link',  badge:'badge-link',  placeholder:'https://source-website.com', inputType:'url'},
+  id:   {label:'User ID',   badge:'badge-id',    placeholder:'username or email',          inputType:'text'},
+  pass: {label:'Password',  badge:'badge-pass',  placeholder:'••••••••',                   inputType:'password'},
+  other:{label:'Other',     badge:'badge-other', placeholder:'any info…',                  inputType:'text'}
+};
+
+function credsSaveAll(btn){
+  const wrap=btn.closest('.cred-wrap'), pid=parseInt(wrap.dataset.pid);
+  const p=projects.find(x=>x.id===pid); if(!p)return;
+  p.credentials=Array.from(wrap.querySelectorAll('.cred-entry')).map(e=>({
+    type:e.dataset.type, value:e.querySelector('.cred-input').value
+  }));
+  scheduleSave();
+  btn.classList.remove('show');
+  const o=btn.textContent; btn.textContent='✓ Saved!'; setTimeout(()=>btn.textContent=o,1500);
+}
+
+function markCredDirty(wrap){ const b=wrap.querySelector('.btn-cred-save-all'); if(b)b.classList.add('show'); }
+
+function addCredEntry(pid,type){
+  const wrap=document.querySelector(`.cred-wrap[data-pid="${pid}"]`); if(!wrap)return;
+  const list=wrap.querySelector('.cred-list');
+  list.appendChild(makeCredEntry(pid,type,''));
+  list.lastChild.querySelector('.cred-input').focus();
+  markCredDirty(wrap);
+}
+
+function deleteCredEntry(btn){
+  const entry=btn.closest('.cred-entry'), wrap=btn.closest('.cred-wrap');
+  entry.remove(); markCredDirty(wrap);
+}
+
+function copyCredValue(btn){
+  const inp=btn.closest('.cred-input-row').querySelector('.cred-input');
+  if(!inp.value.trim())return;
+  navigator.clipboard.writeText(inp.value.trim()).then(()=>{
+    btn.classList.add('copy-ok');
+    btn.innerHTML=`<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`;
+    setTimeout(()=>{ btn.classList.remove('copy-ok'); btn.innerHTML=copyIcon(); },1500);
+  });
+}
+
+function copyIcon(){ return `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`; }
+function eyeOnIcon(){ return `<svg viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>`; }
+function eyeOffIcon(){ return `<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19M1 1l22 22"/></svg>`; }
+
+function togglePassVis(btn){
+  const inp=btn.closest('.cred-input-row').querySelector('.cred-input');
+  if(inp.type==='password'){ inp.type='text'; btn.innerHTML=eyeOffIcon(); }
+  else { inp.type='password'; btn.innerHTML=eyeOnIcon(); }
+}
+
+function makeCredEntry(pid,type,value){
+  const cfg=CTYPES[type]||CTYPES.other;
+  const entry=document.createElement('div');
+  entry.className=`cred-entry type-${type}`; entry.dataset.type=type;
+  const hdr=document.createElement('div'); hdr.className='cred-header';
+  const badge=document.createElement('span');
+  badge.className=`cred-type-badge ${cfg.badge}`; badge.textContent=cfg.label;
+  const delBtn=document.createElement('button');
+  delBtn.className='cred-icon-btn btn-cred-del-entry'; delBtn.title='Delete';
+  delBtn.innerHTML=`<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>`;
+  delBtn.onclick=function(){deleteCredEntry(this);};
+  hdr.appendChild(badge); hdr.appendChild(delBtn);
+  const inpRow=document.createElement('div'); inpRow.className='cred-input-row';
+  const inp=document.createElement('input');
+  inp.className='cred-input'; inp.type=cfg.inputType; inp.value=value; inp.placeholder=cfg.placeholder;
+  inp.oninput=function(){ markCredDirty(this.closest('.cred-wrap')); };
+  inpRow.appendChild(inp);
+  const copyBtn=document.createElement('button');
+  copyBtn.className='cred-icon-btn'; copyBtn.title='Copy'; copyBtn.innerHTML=copyIcon();
+  copyBtn.onclick=function(){copyCredValue(this);};
+  inpRow.appendChild(copyBtn);
+  if(type==='pass'){
+    const eyeBtn=document.createElement('button');
+    eyeBtn.className='cred-icon-btn'; eyeBtn.title='Show/Hide'; eyeBtn.innerHTML=eyeOnIcon();
+    eyeBtn.onclick=function(){togglePassVis(this);};
+    inpRow.appendChild(eyeBtn);
+  }
+  entry.appendChild(hdr); entry.appendChild(inpRow); return entry;
+}
+
+function buildCredDOM(pid,credArr){
+  const wrap=document.createElement('div'); wrap.className='cred-wrap'; wrap.dataset.pid=pid;
+  const list=document.createElement('div'); list.className='cred-list';
+  list.style.cssText='display:flex;flex-direction:column;gap:5px;';
+  (credArr||[]).forEach(c=>list.appendChild(makeCredEntry(pid,c.type,c.value)));
+  wrap.appendChild(list);
+  const footer=document.createElement('div'); footer.className='cred-footer';
+  const addRow=document.createElement('div'); addRow.className='cred-add-row';
+  [{type:'link',icon:'🔗',label:'Link'},{type:'id',icon:'👤',label:'User ID'},{type:'pass',icon:'🔑',label:'Password'},{type:'other',icon:'➕',label:'Other'}].forEach(({type,icon,label})=>{
+    const btn=document.createElement('button'); btn.className='btn-cred-add';
+    btn.innerHTML=`${icon} <b>${label}</b>`; btn.onclick=function(){addCredEntry(pid,type);};
+    addRow.appendChild(btn);
+  });
+  const saveBtn=document.createElement('button'); saveBtn.className='btn-cred-save-all'; saveBtn.textContent='💾 Save All';
+  saveBtn.onclick=function(){credsSaveAll(this);};
+  footer.appendChild(addRow); footer.appendChild(saveBtn);
+  wrap.appendChild(footer); return wrap;
+}
+
+/* ═══════════════════════════════════════════
+   NOTES
+═══════════════════════════════════════════ */
+function markDirty(id,field,el){
+  const btn=el.nextElementSibling; btn.classList.add('show');
+  btn._id=id; btn._field=field;
+}
+function saveInline(btn){
+  const ta=btn.previousElementSibling;
+  const idx=projects.findIndex(p=>p.id===btn._id);
+  if(idx!==-1){ projects[idx][btn._field]=ta.value; scheduleSave(); }
+  btn.classList.remove('show');
+  const o=btn.textContent; btn.textContent='✓ Saved!'; setTimeout(()=>btn.textContent=o,1500);
+}
+
+/* ═══════════════════════════════════════════
+   RENDER TABLE
+═══════════════════════════════════════════ */
+function render(filter){
+  filter=filter||'';
+  const fl=filter.toLowerCase();
+  const body=document.getElementById('proj-body');
+  const empty=document.getElementById('empty-state');
+  const list=projects.filter(p=>
+    !fl||p.name.toLowerCase().includes(fl)||(p.desc||'').toLowerCase().includes(fl)||
+    (p.inputFiles||[]).join(' ').toLowerCase().includes(fl)||
+    (p.outputFiles||[]).join(' ').toLowerCase().includes(fl)||
+    (p.credentials||[]).map(c=>c.value).join(' ').toLowerCase().includes(fl)
+  );
+  document.getElementById('total-count').textContent=projects.length;
+  if(list.length===0){
+    body.innerHTML=fl?`<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3);">No results for "<b>${esc(filter)}</b>"</td></tr>`:'';
+    empty.style.display=(projects.length===0&&!fl)?'block':'none'; return;
+  }
+  empty.style.display='none'; body.innerHTML='';
+  list.forEach((p,i)=>{
+    const tr=document.createElement('tr'); tr.className='proj-row';
+    const tdN=document.createElement('td'); tdN.className='col-num';
+    tdN.innerHTML=`<span class="row-num">${i+1}</span>`; tr.appendChild(tdN);
+    const tdL=document.createElement('td'); tdL.className='col-link';
+    tdL.innerHTML=`<div class="proj-name">${esc(p.name)}</div>`+(p.url
+      ?`<span class="proj-url" title="${esc(p.url)}">${esc(short(p.url))}</span><a class="btn-open" href="${esc(p.url)}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Open Project</a>`
+      :`<span style="font-size:11px;color:var(--text3);font-style:italic;">No link</span>`);
+    tr.appendChild(tdL);
+    const tdD=document.createElement('td'); tdD.className='col-desc';
+    tdD.innerHTML=`<span class="desc-cell">${esc(p.desc||'—')}</span>`; tr.appendChild(tdD);
+    const tdI=document.createElement('td'); tdI.className='col-in';
+    tdI.appendChild(buildBoxesDOM(p.id,'inputFiles',p.inputFiles,true)); tr.appendChild(tdI);
+    const tdO=document.createElement('td'); tdO.className='col-out';
+    tdO.appendChild(buildBoxesDOM(p.id,'outputFiles',p.outputFiles,false)); tr.appendChild(tdO);
+    const tdC=document.createElement('td'); tdC.className='col-cred';
+    tdC.appendChild(buildCredDOM(p.id,p.credentials||[])); tr.appendChild(tdC);
+    const tdA=document.createElement('td'); tdA.className='col-act';
+    tdA.innerHTML=`<div class="act-wrap">
+      <button class="btn-edit" onclick="openEdit(${p.id})"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</button>
+      <button class="btn-del" onclick="openDelete(${p.id})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>Delete</button>
+    </div>`;
+    tr.appendChild(tdA); body.appendChild(tr);
+    const trN=document.createElement('tr'); trN.className='note-row';
+    trN.innerHTML=`<td></td><td colspan="6"><div class="note-inner"><span class="note-icon">📝</span><div class="note-wrap-inner"><textarea class="note-area" rows="2" placeholder="Notes / remarks for this project…" oninput="markDirty(${p.id},'notes',this)">${esc(p.notes||'')}</textarea><button class="save-inline" onclick="saveInline(this)">💾 Save Note</button></div></div></td>`;
+    body.appendChild(trN);
+  });
+}
+
+/* ═══════════════════════════════════════════
+   PANEL
+═══════════════════════════════════════════ */
+function showPanel(title,formVis){
+  document.getElementById('panel-title').innerHTML=title;
+  document.getElementById('form-area').style.display    =formVis?'block':'none';
+  document.getElementById('confirm-area').style.display =formVis?'none':'block';
+  document.getElementById('form-foot').style.display    =formVis?'flex':'none';
+  document.getElementById('overlay').classList.add('open');
+}
+function openAdd(){
+  editId=null;delId=null;
+  ['f-name','f-url','f-desc'].forEach(id=>document.getElementById(id).value='');
+  showPanel('Add <span>Project</span>',true);
+  setTimeout(()=>document.getElementById('f-name').focus(),80);
+}
+function openEdit(id){
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  editId=id;delId=null;
+  document.getElementById('f-name').value=p.name||'';
+  document.getElementById('f-url').value =p.url ||'';
+  document.getElementById('f-desc').value=p.desc||'';
+  showPanel('Edit <span>Project</span>',true);
+  setTimeout(()=>document.getElementById('f-name').focus(),80);
+}
+function openDelete(id){
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  delId=id;editId=null;
+  document.getElementById('del-name').textContent=p.name;
+  showPanel('Delete <span>Project</span>',false);
+}
+function closePanel(){ document.getElementById('overlay').classList.remove('open'); editId=null;delId=null; }
+function overlayClick(e){ if(e.target===document.getElementById('overlay'))closePanel(); }
+function saveProject(){
+  const name=document.getElementById('f-name').value.trim();
+  if(!name){document.getElementById('f-name').focus();return;}
+  const url=document.getElementById('f-url').value.trim(), desc=document.getElementById('f-desc').value.trim();
+  if(editId!==null){
+    const idx=projects.findIndex(p=>p.id===editId);
+    if(idx!==-1) projects[idx]={...projects[idx],name,url,desc};
+  } else {
+    projects.push({id:nextId(),name,url,desc,inputFiles:[''],outputFiles:[''],credentials:[],notes:''});
+  }
+  render(document.getElementById('search-input').value);
+  scheduleSave(); closePanel();
+}
+function confirmDelete(){
+  if(delId===null)return;
+  projects=projects.filter(p=>p.id!==delId);
+  render(document.getElementById('search-input').value);
+  scheduleSave(); closePanel();
+}
+document.getElementById('search-input').addEventListener('input',e=>render(e.target.value));
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePanel(); closeConfig(); }});
+
+/* ═══════════════════════════════════════════
+   INIT — localStorage is PRIMARY, Sheets is SYNC
+═══════════════════════════════════════════ */
+checkBanner();
+
+/* STEP 1: Always load from localStorage first — instant, works offline */
+try {
+  const local = localStorage.getItem('tasr_projects');
+  if(local){
+    projects = JSON.parse(local);
+    projects.forEach(fixProject);
+    render();
+    setSyncState('ok','Loaded from local');
+  }
+} catch(e){ projects = []; }
+
+/* STEP 2: Then try to sync with Sheets in background (won't clear local data) */
+if(API_URL) loadFromSheet();
+else setSyncState('error','Setup needed');
+</script>
+</body>
+</html>
