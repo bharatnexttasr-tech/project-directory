@@ -6,7 +6,7 @@
 <title>Project Directory — TASR/UIPL</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
+ 
   :root {
     --bg:#f0f4ff; --white:#fff; --blue:#1a56db; --blue-dark:#1240a8;
     --blue-hover:#1648c0; --blue-light:#eef2ff; --blue-mid:#c7d4f8;
@@ -21,10 +21,10 @@
     --cother-bg:#f1f5f9;--cother-border:#cbd5e1; --cother-text:#475569;
     --font:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace; --r:7px;
   }
-
+ 
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;display:flex;flex-direction:column;font-size:14px;}
-
+ 
   /* HEADER */
   header{background:var(--blue);padding:13px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(26,86,219,.25);}
   .logo{display:flex;align-items:center;gap:11px;}
@@ -41,14 +41,14 @@
   .sync-dot.syncing{background:#fbbf24;animation:pulse 1s infinite;}
   .sync-dot.error{background:#f87171;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-
+ 
   /* CONFIG BANNER */
   .config-banner{background:#fff3cd;border-bottom:1px solid #ffc107;padding:12px 28px;display:flex;align-items:center;gap:12px;font-size:13px;color:#664d03;}
   .config-banner svg{width:16px;height:16px;flex-shrink:0;stroke:#856404;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
   .config-banner b{font-weight:700;}
   .btn-config{margin-left:auto;background:#ffc107;border:none;font-family:var(--font);font-size:12px;font-weight:700;padding:5px 14px;border-radius:5px;cursor:pointer;color:#000;transition:background .15s;}
   .btn-config:hover{background:#e0a800;}
-
+ 
   /* TOOLBAR */
   .toolbar{padding:11px 28px;display:flex;align-items:center;gap:10px;background:var(--white);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(26,86,219,.06);}
   .search-box{flex:1;max-width:300px;position:relative;}
@@ -64,7 +64,7 @@
   .btn-add:hover{background:var(--blue-hover);}
   .btn-add:active{transform:scale(.97);}
   .btn-add svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;}
-
+ 
   /* TABLE */
   .table-wrap{flex:1;overflow-x:auto;padding:18px 28px 50px;}
   table{width:100%;border-collapse:collapse;min-width:1320px;background:var(--white);border-radius:10px;overflow:hidden;box-shadow:0 1px 8px rgba(26,86,219,.09);border:1px solid var(--border);}
@@ -88,7 +88,7 @@
   .btn-open:hover{background:var(--blue-hover);}
   .btn-open svg{width:10px;height:10px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
   .desc-cell{font-size:12.5px;color:var(--text2);line-height:1.6;}
-
+ 
   /* FILE BOXES */
   .boxes-wrap{display:flex;flex-direction:column;gap:4px;}
   .file-row{display:flex;align-items:center;gap:3px;}
@@ -112,7 +112,7 @@
   .btn-boxes-save{display:none;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);font-family:var(--font);font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;white-space:nowrap;transition:background .15s;}
   .btn-boxes-save:hover{background:var(--blue-mid);}
   .btn-boxes-save.show{display:inline-block;}
-
+ 
   /* CREDENTIALS */
   .cred-wrap{display:flex;flex-direction:column;gap:5px;}
   .cred-entry{border-radius:6px;overflow:hidden;border:1px solid var(--border);}
@@ -141,7 +141,7 @@
   .btn-cred-save-all{display:none;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);font-family:var(--font);font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;width:100%;margin-top:4px;transition:background .15s;}
   .btn-cred-save-all:hover{background:var(--blue-mid);}
   .btn-cred-save-all.show{display:block;}
-
+ 
   /* NOTES */
   .note-inner{display:flex;align-items:flex-start;gap:8px;background:var(--note-bg);border:1px solid var(--note-border);border-radius:6px;padding:7px 10px;}
   .note-icon{font-size:13px;margin-top:2px;flex-shrink:0;}
@@ -151,7 +151,7 @@
   .save-inline{display:none;background:var(--blue-light);color:var(--blue);border:1px solid var(--blue-mid);font-family:var(--font);font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:4px;cursor:pointer;width:100%;transition:background .15s;margin-top:2px;}
   .save-inline:hover{background:var(--blue-mid);}
   .save-inline.show{display:block;}
-
+ 
   /* ACTION */
   .act-wrap{display:flex;flex-direction:column;gap:5px;}
   .btn-edit,.btn-del{background:var(--white);border-radius:5px;cursor:pointer;font-family:var(--font);font-size:11.5px;font-weight:600;padding:5px 10px;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .15s;white-space:nowrap;}
@@ -160,7 +160,7 @@
   .btn-del{color:var(--red);border:1.5px solid var(--red-border);}
   .btn-del:hover{background:var(--red-bg);border-color:var(--red);}
   .btn-edit svg,.btn-del svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-
+ 
   /* EMPTY */
   .empty-state{text-align:center;padding:80px 20px;background:var(--white);}
   .empty-state svg{width:46px;height:46px;stroke:var(--text3);fill:none;margin-bottom:14px;stroke-width:1.5;}
@@ -168,12 +168,12 @@
   .empty-state p{color:var(--text3);font-size:13.5px;margin-bottom:20px;}
   .btn-add-empty{background:var(--blue);color:#fff;border:none;font-family:var(--font);font-size:13px;font-weight:600;padding:9px 22px;border-radius:var(--r);cursor:pointer;box-shadow:0 2px 8px rgba(26,86,219,.22);transition:background .15s;}
   .btn-add-empty:hover{background:var(--blue-hover);}
-
+ 
   /* LOADING OVERLAY */
   .loading-bar{position:fixed;top:0;left:0;width:0;height:3px;background:linear-gradient(90deg,#4ade80,#3b82f6);z-index:999;transition:width .3s ease,opacity .3s;}
   .loading-bar.active{width:80%;opacity:1;}
   .loading-bar.done{width:100%;opacity:0;}
-
+ 
   /* MODAL */
   .overlay{display:none;position:fixed;inset:0;background:rgba(10,20,60,.32);z-index:300;align-items:center;justify-content:center;}
   .overlay.open{display:flex;}
@@ -201,20 +201,20 @@
   .confirm-box em{color:var(--red);font-style:normal;font-weight:600;}
   .del-btns{display:flex;gap:8px;}
   .btn-del-yes{background:var(--red);color:#fff;border:none;font-family:var(--font);font-size:13px;font-weight:600;padding:7px 18px;border-radius:var(--r);cursor:pointer;}
-
+ 
   /* CONFIG MODAL extra */
   #config-form .fgrp input{font-family:var(--mono);font-size:12px;}
-
+ 
   ::-webkit-scrollbar{width:5px;height:5px;}
   ::-webkit-scrollbar-track{background:var(--bg);}
   ::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:10px;}
 </style>
 </head>
 <body>
-
+ 
 <!-- loading bar -->
 <div class="loading-bar" id="loading-bar"></div>
-
+ 
 <!-- HEADER -->
 <header>
   <div class="logo">
@@ -231,14 +231,14 @@
     <div class="count-pill"><b id="total-count">0</b> projects</div>
   </div>
 </header>
-
+ 
 <!-- CONFIG BANNER (shown until API URL is set) -->
 <div class="config-banner" id="config-banner">
   <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-  <span><b>One-time setup needed:</b> Paste your Google Apps Script Web App URL to enable sync across all devices.</span>
-  <button class="btn-config" onclick="openConfig()">⚙️ Set API URL</button>
+  <span><b>One-time setup needed:</b> Enter your GitHub Gist ID &amp; Personal Access Token to sync across all devices.</span>
+  <button class="btn-config" onclick="openConfig()">⚙️ Setup Sync</button>
 </div>
-
+ 
 <!-- TOOLBAR -->
 <div class="toolbar">
   <div class="search-box">
@@ -246,7 +246,7 @@
     <input type="text" id="search-input" placeholder="Search projects…">
   </div>
   <div class="toolbar-right">
-    <button class="btn-refresh" onclick="loadFromSheet()" title="Refresh from Google Sheets">
+    <button class="btn-refresh" onclick="loadFromGist()" title="Refresh from GitHub Gist">
       <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
       Refresh
     </button>
@@ -256,7 +256,7 @@
     </button>
   </div>
 </div>
-
+ 
 <!-- TABLE -->
 <div class="table-wrap">
   <table>
@@ -280,7 +280,7 @@
     <button class="btn-add-empty" onclick="openAdd()">+ Add Project</button>
   </div>
 </div>
-
+ 
 <!-- PROJECT MODAL -->
 <div class="overlay" id="overlay" onclick="overlayClick(event)">
   <div class="panel">
@@ -320,29 +320,35 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- CONFIG MODAL -->
 <div class="overlay" id="config-overlay" onclick="configOverlayClick(event)">
   <div class="panel" id="config-form">
     <div class="panel-hdr">
-      <div class="panel-title">⚙️ <span>Setup API URL</span></div>
+      <div class="panel-title">⚙️ <span>GitHub Gist Sync Setup</span></div>
       <button class="btn-x" onclick="closeConfig()">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
     <div class="fgrp">
-      <label>Google Apps Script Web App URL</label>
-      <input type="url" id="api-url-input" placeholder="https://script.google.com/macros/s/YOUR_ID/exec">
-      <div class="hint">Paste the URL you copied after deploying your Apps Script as a Web App.</div>
+      <label>GitHub Gist ID</label>
+      <input type="text" id="inp-gist-id" placeholder="e.g. a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4">
+      <div class="hint">The long ID from your Gist URL: gist.github.com/username/<b>THIS_PART</b></div>
     </div>
-    <div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:6px;padding:12px;font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:4px;">
-      <b style="color:var(--blue);">Quick Setup Steps:</b><br>
-      1. Open <a href="https://sheets.google.com" target="_blank" style="color:var(--blue);">Google Sheets</a> → create a new sheet<br>
-      2. Click <b>Extensions → Apps Script</b><br>
-      3. Delete existing code, paste contents of <b>Code.gs</b><br>
-      4. Click <b>Deploy → New Deployment</b><br>
-      5. Type: <b>Web App</b> · Execute as: <b>Me</b> · Access: <b>Anyone</b><br>
-      6. Click <b>Deploy</b> → copy the Web App URL → paste above
+    <div class="fgrp">
+      <label>GitHub Personal Access Token</label>
+      <input type="password" id="inp-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+      <div class="hint">Needs <b>gist</b> permission only. Stored in your browser only.</div>
+    </div>
+    <div style="background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:6px;padding:12px;font-size:12.5px;color:var(--text2);line-height:1.8;margin-bottom:4px;">
+      <b style="color:var(--blue);">Quick Setup (2 minutes):</b><br>
+      1. Go to <a href="https://gist.github.com" target="_blank" style="color:var(--blue);">gist.github.com</a> → New Gist<br>
+      2. Filename: <b>projects.json</b> · Content: <b>[]</b> → Create <b>Secret</b> Gist<br>
+      3. Copy the ID from the URL (long code after your username)<br>
+      4. Go to GitHub → Settings → Developer Settings →<br>
+      &nbsp;&nbsp;&nbsp;Personal Access Tokens → Tokens (classic) → New token<br>
+      5. Tick <b>gist</b> only → Generate → copy token<br>
+      6. Paste both above → Save &amp; Connect ✅
     </div>
     <div class="panel-foot">
       <button class="btn-cancel" onclick="closeConfig()">Cancel</button>
@@ -350,33 +356,40 @@
     </div>
   </div>
 </div>
-
+ 
 <script>
 /* ═══════════════════════════════════════════
-   CONFIG
+   CONFIG — GitHub Gist
 ═══════════════════════════════════════════ */
-let API_URL = localStorage.getItem('tasr_api_url') || '';
+let GIST_ID = localStorage.getItem('tasr_gist_id')  || '';
+let GH_TOKEN = localStorage.getItem('tasr_gh_token') || '';
 let projects = [];
 let editId = null, delId = null;
 let saveTimer = null;
-
-function openConfig(){ document.getElementById('config-overlay').classList.add('open'); document.getElementById('api-url-input').value = API_URL; }
+ 
+function openConfig(){
+  document.getElementById('config-overlay').classList.add('open');
+  document.getElementById('inp-gist-id').value = GIST_ID;
+  document.getElementById('inp-token').value   = GH_TOKEN;
+}
 function closeConfig(){ document.getElementById('config-overlay').classList.remove('open'); }
 function configOverlayClick(e){ if(e.target===document.getElementById('config-overlay')) closeConfig(); }
 function saveConfig(){
-  const v = document.getElementById('api-url-input').value.trim();
-  if(!v){ alert('Please paste the Web App URL.'); return; }
-  API_URL = v;
-  localStorage.setItem('tasr_api_url', API_URL);
-  document.getElementById('config-banner').style.display = 'none';
+  const gid = document.getElementById('inp-gist-id').value.trim();
+  const tok = document.getElementById('inp-token').value.trim();
+  if(!gid||!tok){ alert('Please fill in both Gist ID and Token.'); return; }
+  GIST_ID=gid; GH_TOKEN=tok;
+  localStorage.setItem('tasr_gist_id',   GIST_ID);
+  localStorage.setItem('tasr_gh_token',  GH_TOKEN);
+  document.getElementById('config-banner').style.display='none';
   closeConfig();
-  loadFromSheet();
+  loadFromGist();
 }
-
+ 
 function checkBanner(){
-  document.getElementById('config-banner').style.display = API_URL ? 'none' : 'flex';
+  document.getElementById('config-banner').style.display=(GIST_ID&&GH_TOKEN)?'none':'flex';
 }
-
+ 
 /* ═══════════════════════════════════════════
    SYNC INDICATOR
 ═══════════════════════════════════════════ */
@@ -386,86 +399,95 @@ function setSyncState(state, msg){
   dot.className = 'sync-dot' + (state==='syncing'?' syncing': state==='error'?' error':'');
   lbl.textContent = msg;
 }
-
+ 
 /* ═══════════════════════════════════════════
    LOADING BAR
 ═══════════════════════════════════════════ */
 function barStart(){ const b=document.getElementById('loading-bar'); b.className='loading-bar active'; }
 function barDone(){  const b=document.getElementById('loading-bar'); b.className='loading-bar done'; setTimeout(()=>b.className='loading-bar',400); }
-
+ 
 /* ═══════════════════════════════════════════
-   GOOGLE SHEETS API
+   GITHUB GIST SYNC
 ═══════════════════════════════════════════ */
-
+ 
+const GIST_FILE = 'projects.json';
+ 
 /* ── Always save to localStorage FIRST (instant, never fails) ── */
 function saveLocal(){
   localStorage.setItem('tasr_projects', JSON.stringify(projects));
   localStorage.setItem('tasr_ts', Date.now().toString());
 }
-
-/* ── Load from Sheets — only replaces local if sheet has MORE/NEWER data ── */
-async function loadFromSheet(){
-  if(!API_URL){ setSyncState('error','No API URL'); return; }
+ 
+/* ── Load from Gist ── */
+async function loadFromGist(){
+  if(!GIST_ID||!GH_TOKEN){ setSyncState('error','Setup needed'); return; }
   barStart(); setSyncState('syncing','Loading…');
   try {
-    const res  = await fetch(API_URL + '?t=' + Date.now()); /* cache-bust */
+    const res = await fetch('https://api.github.com/gists/' + GIST_ID, {
+      headers: {
+        'Authorization': 'token ' + GH_TOKEN,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if(!res.ok) throw new Error('HTTP ' + res.status);
     const json = await res.json();
-    if(json.status==='ok'){
-      const sheetData = json.data || [];
-      /* Only use sheet data if it actually has projects,
-         OR if local is empty. Never overwrite local data with empty sheet. */
-      if(sheetData.length > 0){
-        projects = sheetData;
+    const content = json.files[GIST_FILE] && json.files[GIST_FILE].content;
+    if(content){
+      const gistData = JSON.parse(content) || [];
+      if(gistData.length > 0){
+        projects = gistData;
         projects.forEach(fixProject);
-        saveLocal(); /* update local with fresh sheet data */
+        saveLocal();
         render(document.getElementById('search-input').value);
         setSyncState('ok','Synced ✓');
       } else if(projects.length === 0){
-        /* Both are empty — that's fine */
         setSyncState('ok','Ready');
       } else {
-        /* Sheet is empty but local has data — sheet probably wasn't saved yet */
-        /* Push local data UP to sheet to fix this */
+        /* Gist empty but local has data — push local up */
         setSyncState('syncing','Uploading local data…');
-        await pushToSheet();
+        await pushToGist();
       }
     } else {
-      throw new Error(json.message);
+      throw new Error('File not found in Gist');
     }
   } catch(e){
-    setSyncState('error','Sheets unavailable — using local data');
+    setSyncState('error','Gist unavailable — using local data');
     console.error(e);
   }
   barDone();
 }
-
-/* ── Push local data to Sheets ──
-   Uses form-urlencoded (not JSON) to avoid CORS preflight block ── */
-async function pushToSheet(){
-  if(!API_URL) return;
+ 
+/* ── Push to Gist ── */
+async function pushToGist(){
+  if(!GIST_ID||!GH_TOKEN) return;
   setSyncState('syncing','Saving…');
   try {
-    /* URLSearchParams = simple content-type = no CORS preflight = works from Netlify */
-    const res = await fetch(API_URL, {
-      method:'POST',
-      body: new URLSearchParams({ data: JSON.stringify(projects) })
+    const body = { files: {} };
+    body.files[GIST_FILE] = { content: JSON.stringify(projects) };
+    const res = await fetch('https://api.github.com/gists/' + GIST_ID, {
+      method: 'PATCH',
+      headers: {
+        'Authorization': 'token ' + GH_TOKEN,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
     });
-    const json = await res.json();
-    if(json.status==='ok'){ setSyncState('ok','Saved ✓'); }
-    else { throw new Error(json.message); }
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    setSyncState('ok','Saved ✓');
   } catch(e){
     setSyncState('error','Sync failed — data safe locally');
     console.error(e);
   }
 }
-
-/* ── Schedule a save: localStorage immediately + Sheets after debounce ── */
+ 
+/* ── Schedule save: localStorage instantly + Gist after debounce ── */
 function scheduleSave(){
-  saveLocal(); /* instant — localStorage never fails */
+  saveLocal();
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(pushToSheet, 1500); /* Sheets save after 1.5s debounce */
+  saveTimer = setTimeout(pushToGist, 1500);
 }
-
+ 
 /* ═══════════════════════════════════════════
    DATA HELPERS
 ═══════════════════════════════════════════ */
@@ -478,12 +500,12 @@ function fixProject(p){
 function nextId(){ return projects.length ? Math.max(...projects.map(p=>p.id))+1 : 1; }
 function esc(s)  { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function short(u){ try{ const x=new URL(u); return x.hostname+(x.pathname!=='/'?x.pathname:''); }catch(e){ return u; } }
-
+ 
 /* ═══════════════════════════════════════════
    FILE BOXES
 ═══════════════════════════════════════════ */
 function markDirtyWrap(wrap){ const b=wrap.querySelector('.btn-boxes-save'); if(b)b.classList.add('show'); }
-
+ 
 function saveBoxes(btn){
   const wrap=btn.closest('.boxes-wrap');
   const pid=parseInt(wrap.dataset.pid), type=wrap.dataset.type;
@@ -494,7 +516,7 @@ function saveBoxes(btn){
   const o=btn.textContent; btn.textContent='✓ Saved!';
   setTimeout(()=>btn.textContent=o,1500);
 }
-
+ 
 function addBox(pid,type){
   const wrap=document.querySelector(`.boxes-wrap[data-pid="${pid}"][data-type="${type}"]`); if(!wrap)return;
   const list=wrap.querySelector('.file-list'), idx=list.children.length, isIn=type==='inputFiles';
@@ -503,7 +525,7 @@ function addBox(pid,type){
   const p=projects.find(x=>x.id===pid); if(!p)return;
   p[type].push(''); scheduleSave(); renumber(list,isIn);
 }
-
+ 
 function deleteBox(btn){
   const row=btn.closest('.file-row'), wrap=btn.closest('.boxes-wrap');
   const pid=parseInt(wrap.dataset.pid), type=wrap.dataset.type;
@@ -514,11 +536,11 @@ function deleteBox(btn){
   const p=projects.find(x=>x.id===pid); if(!p)return;
   p[type].splice(idx,1); scheduleSave(); row.remove(); renumber(list,type==='inputFiles');
 }
-
+ 
 function renumber(list,isIn){
   Array.from(list.children).forEach((r,i)=>{ const b=r.querySelector('.box-num'); if(b)b.textContent=i+1; });
 }
-
+ 
 function makeBoxRow(pid,type,idx,val,isIn){
   const row=document.createElement('div'); row.className='file-row';
   const badge=document.createElement('span');
@@ -533,7 +555,7 @@ function makeBoxRow(pid,type,idx,val,isIn){
   row.appendChild(badge); row.appendChild(inp); row.appendChild(del);
   return row;
 }
-
+ 
 function buildBoxesDOM(pid,type,vals,isIn){
   const wrap=document.createElement('div');
   wrap.className='boxes-wrap'; wrap.dataset.pid=pid; wrap.dataset.type=type;
@@ -552,7 +574,7 @@ function buildBoxesDOM(pid,type,vals,isIn){
   footer.appendChild(addBtn); footer.appendChild(saveBtn);
   wrap.appendChild(footer); return wrap;
 }
-
+ 
 /* ═══════════════════════════════════════════
    CREDENTIALS
 ═══════════════════════════════════════════ */
@@ -562,7 +584,7 @@ const CTYPES={
   pass: {label:'Password',  badge:'badge-pass',  placeholder:'••••••••',                   inputType:'password'},
   other:{label:'Other',     badge:'badge-other', placeholder:'any info…',                  inputType:'text'}
 };
-
+ 
 function credsSaveAll(btn){
   const wrap=btn.closest('.cred-wrap'), pid=parseInt(wrap.dataset.pid);
   const p=projects.find(x=>x.id===pid); if(!p)return;
@@ -573,9 +595,9 @@ function credsSaveAll(btn){
   btn.classList.remove('show');
   const o=btn.textContent; btn.textContent='✓ Saved!'; setTimeout(()=>btn.textContent=o,1500);
 }
-
+ 
 function markCredDirty(wrap){ const b=wrap.querySelector('.btn-cred-save-all'); if(b)b.classList.add('show'); }
-
+ 
 function addCredEntry(pid,type){
   const wrap=document.querySelector(`.cred-wrap[data-pid="${pid}"]`); if(!wrap)return;
   const list=wrap.querySelector('.cred-list');
@@ -583,12 +605,12 @@ function addCredEntry(pid,type){
   list.lastChild.querySelector('.cred-input').focus();
   markCredDirty(wrap);
 }
-
+ 
 function deleteCredEntry(btn){
   const entry=btn.closest('.cred-entry'), wrap=btn.closest('.cred-wrap');
   entry.remove(); markCredDirty(wrap);
 }
-
+ 
 function copyCredValue(btn){
   const inp=btn.closest('.cred-input-row').querySelector('.cred-input');
   if(!inp.value.trim())return;
@@ -598,17 +620,17 @@ function copyCredValue(btn){
     setTimeout(()=>{ btn.classList.remove('copy-ok'); btn.innerHTML=copyIcon(); },1500);
   });
 }
-
+ 
 function copyIcon(){ return `<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`; }
 function eyeOnIcon(){ return `<svg viewBox="0 0 24 24"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>`; }
 function eyeOffIcon(){ return `<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19M1 1l22 22"/></svg>`; }
-
+ 
 function togglePassVis(btn){
   const inp=btn.closest('.cred-input-row').querySelector('.cred-input');
   if(inp.type==='password'){ inp.type='text'; btn.innerHTML=eyeOffIcon(); }
   else { inp.type='password'; btn.innerHTML=eyeOnIcon(); }
 }
-
+ 
 function makeCredEntry(pid,type,value){
   const cfg=CTYPES[type]||CTYPES.other;
   const entry=document.createElement('div');
@@ -638,7 +660,7 @@ function makeCredEntry(pid,type,value){
   }
   entry.appendChild(hdr); entry.appendChild(inpRow); return entry;
 }
-
+ 
 function buildCredDOM(pid,credArr){
   const wrap=document.createElement('div'); wrap.className='cred-wrap'; wrap.dataset.pid=pid;
   const list=document.createElement('div'); list.className='cred-list';
@@ -657,7 +679,7 @@ function buildCredDOM(pid,credArr){
   footer.appendChild(addRow); footer.appendChild(saveBtn);
   wrap.appendChild(footer); return wrap;
 }
-
+ 
 /* ═══════════════════════════════════════════
    NOTES
 ═══════════════════════════════════════════ */
@@ -672,7 +694,7 @@ function saveInline(btn){
   btn.classList.remove('show');
   const o=btn.textContent; btn.textContent='✓ Saved!'; setTimeout(()=>btn.textContent=o,1500);
 }
-
+ 
 /* ═══════════════════════════════════════════
    RENDER TABLE
 ═══════════════════════════════════════════ */
@@ -721,7 +743,7 @@ function render(filter){
     body.appendChild(trN);
   });
 }
-
+ 
 /* ═══════════════════════════════════════════
    PANEL
 ═══════════════════════════════════════════ */
@@ -776,13 +798,13 @@ function confirmDelete(){
 }
 document.getElementById('search-input').addEventListener('input',e=>render(e.target.value));
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closePanel(); closeConfig(); }});
-
+ 
 /* ═══════════════════════════════════════════
-   INIT — localStorage is PRIMARY, Sheets is SYNC
+   INIT — localStorage PRIMARY, Gist is SYNC
 ═══════════════════════════════════════════ */
 checkBanner();
-
-/* STEP 1: Always load from localStorage first — instant, works offline */
+ 
+/* STEP 1: Load from localStorage instantly */
 try {
   const local = localStorage.getItem('tasr_projects');
   if(local){
@@ -792,9 +814,9 @@ try {
     setSyncState('ok','Loaded from local');
   }
 } catch(e){ projects = []; }
-
-/* STEP 2: Then try to sync with Sheets in background (won't clear local data) */
-if(API_URL) loadFromSheet();
+ 
+/* STEP 2: Sync with GitHub Gist in background */
+if(GIST_ID && GH_TOKEN) loadFromGist();
 else setSyncState('error','Setup needed');
 </script>
 </body>
